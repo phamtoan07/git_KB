@@ -1,0 +1,598 @@
+[fo@app163 timesten_script]$ vim
+[fo@app163 timesten_script]$ vim /etc/sysctl.conf
+[fo@app163 timesten_script]$ sysctl -p
+error: permission denied on key 'net.ipv4.ip_forward'
+error: permission denied on key 'net.ipv4.conf.default.rp_filter'
+error: permission denied on key 'net.ipv4.conf.default.accept_source_route'
+error: permission denied on key 'kernel.sysrq'
+error: permission denied on key 'kernel.core_uses_pid'
+error: permission denied on key 'net.ipv4.tcp_syncookies'
+error: permission denied on key 'kernel.msgmnb'
+error: permission denied on key 'kernel.msgmax'
+error: permission denied on key 'kernel.shmmax'
+error: permission denied on key 'kernel.shmall'
+error: permission denied on key 'kernel.shmmni'
+error: permission denied on key 'kernel.sem'
+error: permission denied on key 'fs.file-max'
+error: permission denied on key 'net.core.rmem_default'
+error: permission denied on key 'net.core.wmem_default'
+error: permission denied on key 'net.core.rmem_max'
+error: permission denied on key 'net.core.wmem_max'
+error: permission denied on key 'fs.aio-max-nr'
+error: permission denied on key 'net.ipv4.ip_local_port_range'
+error: permission denied on key 'net.ipv4.ip_local_port_range'
+error: permission denied on key 'fs.file-max'
+error: permission denied on key 'kernel.shmall'
+error: permission denied on key 'kernel.shmmax'
+error: permission denied on key 'kernel.shmmni'
+error: permission denied on key 'kernel.sem'
+error: permission denied on key 'net.core.rmem_default'
+error: permission denied on key 'net.core.wmem_default'
+error: permission denied on key 'net.core.rmem_max'
+error: permission denied on key 'net.core.wmem_max'
+error: permission denied on key 'fs.aio-max-nr'
+error: permission denied on key 'fs.file-max'
+warning: /etc/sysctl.conf(62): invalid syntax, continuing...
+warning: /etc/sysctl.conf(63): invalid syntax, continuing...
+warning: /etc/sysctl.conf(64): invalid syntax, continuing...
+warning: /etc/sysctl.conf(65): invalid syntax, continuing...
+[fo@app163 timesten_script]$ sudo sysctl -p
+
+We trust you have received the usual lecture from the local System
+Administrator. It usually boils down to these three things:
+
+    #1) Respect the privacy of others.
+    #2) Think before you type.
+    #3) With great power comes great responsibility.
+
+[sudo] password for fo:
+fo is not in the sudoers file.  This incident will be reported.
+[fo@app163 timesten_script]$ su
+Password:
+[root@app163 timesten_script]# sysctl -p
+net.ipv4.ip_forward = 0
+net.ipv4.conf.default.rp_filter = 1
+net.ipv4.conf.default.accept_source_route = 0
+kernel.sysrq = 0
+kernel.core_uses_pid = 1
+net.ipv4.tcp_syncookies = 1
+kernel.msgmnb = 65536
+kernel.msgmax = 65536
+kernel.shmmax = 68719476736
+kernel.shmall = 4294967296
+kernel.shmmni = 4096
+kernel.sem = 250 32000 100 128
+fs.file-max = 6815744
+net.core.rmem_default = 262144
+net.core.wmem_default = 262144
+net.core.rmem_max = 4194304
+net.core.wmem_max = 1048576
+fs.aio-max-nr = 1048576
+net.ipv4.ip_local_port_range = 9000 65500
+net.ipv4.ip_local_port_range = 9000 65500
+fs.file-max = 6815744
+kernel.shmall = 10523004
+kernel.shmmax = 10465333657
+kernel.shmmni = 4096
+kernel.sem = 2047 32000 100 128
+net.core.rmem_default = 262144
+net.core.wmem_default = 262144
+net.core.rmem_max = 4194304
+net.core.wmem_max = 1048576
+fs.aio-max-nr = 1048576
+fs.file-max = 655360
+warning: /etc/sysctl.conf(62): invalid syntax, continuing...
+warning: /etc/sysctl.conf(63): invalid syntax, continuing...
+warning: /etc/sysctl.conf(64): invalid syntax, continuing...
+warning: /etc/sysctl.conf(65): invalid syntax, continuing...
+[root@app163 timesten_script]# exit
+exit
+[fo@app163 timesten_script]$ ./build_timesten.sh
+
+Restart timesten server....
+
+TimesTen Daemon stopped.
+TimesTen Daemon startup OK.
+
+destroy datasource....
+
+Failed to destroy data store: TT0833: Data store /home/fo/TimesTen/tt1122/info/DataStore/FOTEST not found -- file "db.c", lineno 20718, procedure "sbDbDestroy"
+
+start build timesten....
+
+
+Copyright (c) 1996, 2015, Oracle and/or its affiliates. All rights reserved.
+Type ? or "help" for help, type "exit" to quit ttIsql.
+
+
+
+connect "dsn=FOTEST";
+Connection successful: DSN=FOTEST;UID=fo;DataStore=/home/fo/TimesTen/tt1122/info/DataStore/FOTEST;DatabaseCharacterSet=AL32UTF8;ConnectionCharacterSet=AL32UTF8;DRIVER=/home/fo/TimesTen/tt1122/lib/libtten.so;PermSize=7400;TempSize=1200;Connections=300;TypeMode=0;DynamicLoadEnable=0;OracleNetServiceName=FO163;
+(Default setting AutoCommit=1)
+
+run "build_timesten.sql";
+
+SET DEFINE ON;
+
+set echo off;
+
+Create a Cache Manager User .....
+
+
+User created.
+
+
+Create a TimesTen User .....
+
+
+User created.
+
+
+Set the cache administration user .....
+
+< CACHEADM >
+
+Create cache grid and start cachegroup for cacheadm .....
+
+ 3330: Grid 'FOTESTGRID' does not exist
+< FOTESTGRID, CACHEADM, Linux x86-64, 64-bit, 11, 2, 2 >
+
+Create cache groups .....
+
+Warning  5119: Column FOTEST.CUSTOMERS.DOF has different nullability setting in Oracle
+
+Cache Group CACHEADM.G_AWT_ACCOUNTS:
+
+  Cache Group Type: Asynchronous Writethrough global (Dynamic)
+  Autorefresh: No
+  Aging: LRU on
+
+  Root Table: FOTEST.ACCOUNTS
+  Table Type: Propagate
+
+Cache Group CACHEADM.G_AWT_ADVORDERS:
+
+  Cache Group Type: Asynchronous Writethrough global (Dynamic)
+  Autorefresh: No
+  Aging: LRU on
+
+  Root Table: FOTEST.ADVORDERS
+  Table Type: Propagate
+
+Cache Group CACHEADM.G_AWT_ALLOCATION:
+
+  Cache Group Type: Asynchronous Writethrough global (Dynamic)
+  Autorefresh: No
+  Aging: LRU on
+
+  Root Table: FOTEST.ALLOCATION
+  Table Type: Propagate
+
+Cache Group CACHEADM.G_AWT_BANKACCORDERS:
+
+  Cache Group Type: Asynchronous Writethrough global (Dynamic)
+  Autorefresh: No
+  Aging: LRU on
+
+  Root Table: FOTEST.BANKACCORDERS
+  Table Type: Propagate
+
+Cache Group CACHEADM.G_AWT_BASKETS:
+
+  Cache Group Type: Asynchronous Writethrough global (Dynamic)
+  Autorefresh: No
+  Aging: LRU on
+
+  Root Table: FOTEST.BASKETS
+  Table Type: Propagate
+
+Cache Group CACHEADM.G_AWT_CROSSINFO:
+
+  Cache Group Type: Asynchronous Writethrough global (Dynamic)
+  Autorefresh: No
+  Aging: LRU on
+
+  Root Table: FOTEST.CROSSINFO
+  Table Type: Propagate
+
+Cache Group CACHEADM.G_AWT_CUSTOMERS:
+
+  Cache Group Type: Asynchronous Writethrough global (Dynamic)
+  Autorefresh: No
+  Aging: LRU on
+
+  Root Table: FOTEST.CUSTOMERS
+  Table Type: Propagate
+
+Cache Group CACHEADM.G_AWT_DEFRULES:
+
+  Cache Group Type: Asynchronous Writethrough global (Dynamic)
+  Autorefresh: No
+  Aging: LRU on
+
+  Root Table: FOTEST.DEFRULES
+  Table Type: Propagate
+
+Cache Group CACHEADM.G_AWT_DICERRORS:
+
+  Cache Group Type: Asynchronous Writethrough global (Dynamic)
+  Autorefresh: No
+  Aging: LRU on
+
+  Root Table: FOTEST.DICERRORS
+  Table Type: Propagate
+
+Cache Group CACHEADM.G_AWT_EXCERROR:
+
+  Cache Group Type: Asynchronous Writethrough global (Dynamic)
+  Autorefresh: No
+  Aging: LRU on
+
+  Root Table: FOTEST.EXCERROR
+  Table Type: Propagate
+
+Cache Group CACHEADM.G_AWT_FOUSERS:
+
+  Cache Group Type: Asynchronous Writethrough global (Dynamic)
+  Autorefresh: No
+  Aging: LRU on
+
+  Root Table: FOTEST.FOUSERS
+  Table Type: Propagate
+
+Cache Group CACHEADM.G_AWT_GW_MSG_LOGS:
+
+  Cache Group Type: Asynchronous Writethrough global (Dynamic)
+  Autorefresh: No
+  Aging: LRU on
+
+  Root Table: FOTEST.GW_MSG_LOGS
+  Table Type: Propagate
+
+Cache Group CACHEADM.G_AWT_HFT_MSG_LOGS:
+
+  Cache Group Type: Asynchronous Writethrough global (Dynamic)
+  Autorefresh: No
+  Aging: LRU on
+
+  Root Table: FOTEST.HFT_MSG_LOGS
+  Table Type: Propagate
+
+Cache Group CACHEADM.G_AWT_INSTRUMENTS:
+
+  Cache Group Type: Asynchronous Writethrough global (Dynamic)
+  Autorefresh: No
+  Aging: LRU on
+
+  Root Table: FOTEST.INSTRUMENTS
+  Table Type: Propagate
+
+Cache Group CACHEADM.G_AWT_MARKETINFO:
+
+  Cache Group Type: Asynchronous Writethrough global (Dynamic)
+  Autorefresh: No
+  Aging: LRU on
+
+  Root Table: FOTEST.MARKETINFO
+  Table Type: Propagate
+
+Cache Group CACHEADM.G_AWT_MSGERRORS:
+
+  Cache Group Type: Asynchronous Writethrough global (Dynamic)
+  Autorefresh: No
+  Aging: LRU on
+
+  Root Table: FOTEST.MSGERRORS
+  Table Type: Propagate
+
+Cache Group CACHEADM.G_AWT_ORDERS:
+
+  Cache Group Type: Asynchronous Writethrough global (Dynamic)
+  Autorefresh: No
+  Aging: LRU on
+
+  Root Table: FOTEST.ORDERS
+  Table Type: Propagate
+
+Cache Group CACHEADM.G_AWT_OWNPOOLROOM:
+
+  Cache Group Type: Asynchronous Writethrough global (Dynamic)
+  Autorefresh: No
+  Aging: LRU on
+
+  Root Table: FOTEST.OWNPOOLROOM
+  Table Type: Propagate
+
+Cache Group CACHEADM.G_AWT_POOLROOM:
+
+  Cache Group Type: Asynchronous Writethrough global (Dynamic)
+  Autorefresh: No
+  Aging: LRU on
+
+  Root Table: FOTEST.POOLROOM
+  Table Type: Propagate
+
+Cache Group CACHEADM.G_AWT_PORTFOLIOS:
+
+  Cache Group Type: Asynchronous Writethrough global (Dynamic)
+  Autorefresh: No
+  Aging: LRU on
+
+  Root Table: FOTEST.PORTFOLIOS
+  Table Type: Propagate
+
+Cache Group CACHEADM.G_AWT_PORTFOLIOSEX:
+
+  Cache Group Type: Asynchronous Writethrough global (Dynamic)
+  Autorefresh: No
+  Aging: LRU on
+
+  Root Table: FOTEST.PORTFOLIOSEX
+  Table Type: Propagate
+
+Cache Group CACHEADM.G_AWT_PRODUCTS:
+
+  Cache Group Type: Asynchronous Writethrough global (Dynamic)
+  Autorefresh: No
+  Aging: LRU on
+
+  Root Table: FOTEST.PRODUCTS
+  Table Type: Propagate
+
+Cache Group CACHEADM.G_AWT_PROFILES:
+
+  Cache Group Type: Asynchronous Writethrough global (Dynamic)
+  Autorefresh: No
+  Aging: LRU on
+
+  Root Table: FOTEST.PROFILES
+  Table Type: Propagate
+
+Cache Group CACHEADM.G_AWT_QUOTES:
+
+  Cache Group Type: Asynchronous Writethrough global (Dynamic)
+  Autorefresh: No
+  Aging: LRU on
+
+  Root Table: FOTEST.QUOTES
+  Table Type: Propagate
+
+Cache Group CACHEADM.G_AWT_STATICDATA:
+
+  Cache Group Type: Asynchronous Writethrough global (Dynamic)
+  Autorefresh: No
+  Aging: LRU on
+
+  Root Table: FOTEST.STATICDATA
+  Table Type: Propagate
+
+Cache Group CACHEADM.G_AWT_SYSCONFIG:
+
+  Cache Group Type: Asynchronous Writethrough global (Dynamic)
+  Autorefresh: No
+  Aging: LRU on
+
+  Root Table: FOTEST.SYSCONFIG
+  Table Type: Propagate
+
+Cache Group CACHEADM.G_AWT_TICKSIZE:
+
+  Cache Group Type: Asynchronous Writethrough global (Dynamic)
+  Autorefresh: No
+  Aging: LRU on
+
+  Root Table: FOTEST.TICKSIZE
+  Table Type: Propagate
+
+Cache Group CACHEADM.G_AWT_TRACKUNIQUE:
+
+  Cache Group Type: Asynchronous Writethrough global (Dynamic)
+  Autorefresh: No
+  Aging: LRU on
+
+  Root Table: FOTEST.TRACKUNIQUE
+  Table Type: Propagate
+
+Cache Group CACHEADM.G_AWT_TRADES:
+
+  Cache Group Type: Asynchronous Writethrough global (Dynamic)
+  Autorefresh: No
+  Aging: LRU on
+
+  Root Table: FOTEST.TRADES
+  Table Type: Propagate
+
+Cache Group CACHEADM.G_AWT_TRADING_EXCEPTION:
+
+  Cache Group Type: Asynchronous Writethrough global (Dynamic)
+  Autorefresh: No
+  Aging: LRU on
+
+  Root Table: FOTEST.TRADING_EXCEPTION
+  Table Type: Propagate
+
+Cache Group CACHEADM.G_AWT_TRADING_EXCEPTION_LOG:
+
+  Cache Group Type: Asynchronous Writethrough global (Dynamic)
+  Autorefresh: No
+  Aging: LRU on
+
+  Root Table: FOTEST.TRADING_EXCEPTION_LOG
+  Table Type: Propagate
+
+Cache Group CACHEADM.G_AWT_TRANSACTIONS:
+
+  Cache Group Type: Asynchronous Writethrough global (Dynamic)
+  Autorefresh: No
+  Aging: LRU on
+
+  Root Table: FOTEST.TRANSACTIONS
+  Table Type: Propagate
+
+Cache Group CACHEADM.G_AWT_WORKINGCALENDAR:
+
+  Cache Group Type: Asynchronous Writethrough global (Dynamic)
+  Autorefresh: No
+  Aging: LRU on
+
+  Root Table: FOTEST.WORKINGCALENDAR
+  Table Type: Propagate
+Start the replication agent for the Asynchronous writethrough cache group .....
+
+Attach Cache Grid
+< FOTESTGRID, 1, 1, T, app163.fss.com.vn, FOTESTGRID_fotestgrid_1, 192.168.1.163, 9991, <NULL>, <NULL>, <NULL>, <NULL>, <NULL> >
+LOAD CACHE GROUP .....
+
+CREATE PACKAGES, SEQUENCE, TABLE TEMPORARY  .....
+
+CREATE SEQUENCE ....
+ 3204: Sequence FOTEST.SEQ_TRANSACTIONS not found
+ 3204: Sequence FOTEST.SEQ_POOLROOM not found
+ 3204: Sequence FOTEST.SEQ_COMMON not found
+ 3204: Sequence FOTEST.SEQ_DEALID not found
+ 3204: Sequence FOTEST.SEQ_BASKETS not found
+ 3204: Sequence FOTEST.SEQ_DEFRULES not found
+ 3204: Sequence FOTEST.SEQ_ALLOCATION not found
+ 3204: Sequence FOTEST.SEQ_ORDERS not found
+ 3204: Sequence FOTEST.SEQ_TRADING not found
+ 3204: Sequence FOTEST.SEQ_QUOTES not found
+ 3204: Sequence FOTEST.SEQ_ROOT_ORDERID not found
+ 3204: Sequence FOTEST.SEQ_EXCERROR not found
+ 3204: Sequence FOTEST.SEQ_HNX_ORDERID not found
+ 3204: Sequence FOTEST.SEQ_TTLOGS not found
+ 3204: Sequence FOTEST.SEQ_GW_MSG_LOGS not found
+ 3204: Sequence FOTEST.SEQ_MSG_832 not found
+ 3204: Sequence FOTEST.SEQ_PORTFOLIOSPIT_SYN_EVENT not found
+ 2223: Named index does not exist
+ 2223: Named index does not exist
+ 2223: Named index does not exist
+ 2223: Named index does not exist
+ 2223: Named index does not exist
+ 2223: Named index does not exist
+ 2223: Named index does not exist
+ 2223: Named index does not exist
+ 2223: Named index does not exist
+ 2223: Named index does not exist
+ 2223: Named index does not exist
+ 2223: Named index does not exist
+ 2223: Named index does not exist
+ 2223: Named index does not exist
+ 2223: Named index does not exist
+CREATE TABLE TEMPORARY ....
+ 2206: Table FOTEST.TTLOGS not found
+ 2206: Table FOTEST.CONSIDERED_SYMBOLS_TMP not found
+ 2206: Table FOTEST.TBL_MATCHED_TRANS not found
+CREATE PACKAGES .....
+FO Packages Installation
+**********************
+
+Create package CSPKS_FO_COMMON ...
+
+Package created.
+
+
+Package body created.
+
+Create package CSPKS_FO_VALIDATION ...
+
+Package created.
+
+
+Package body created.
+
+Create package CSPKS_FO_RESET_SEQUENCE ...
+
+Package created.
+
+
+Package body created.
+
+Create package CSPKS_FO_POOLROOM ...
+
+Package created.
+
+
+Package body created.
+
+Create package CSPKS_FO_ORDER ...
+
+Package created.
+
+
+Package body created.
+
+Create package CSPKS_FO_ORDER_ADV ...
+
+Package created.
+
+
+Package body created.
+
+Create package CSPKS_FO_ORDER_NEW ...
+
+Package created.
+
+
+Package body created.
+
+Create package CSPKS_FO_ORDER_AMEND ...
+ 8507: ORA-04043: object CSPKS_FO_ORDER_AMEND does not exist
+
+Package created.
+
+
+Package body created.
+
+Create package CSPKS_FO_ORDER_CROSS ...
+
+Package created.
+
+
+Package body created.
+
+Create package CSPKS_FO_ORDER_RESPONE ...
+
+Package created.
+
+
+Package body created.
+
+Create package CSPKS_FO_ORDER_CANCEL ...
+
+Package created.
+
+
+Package body created.
+
+Create package CSPKS_FO_GW_HNX ...
+
+Package created.
+
+
+Package body created.
+
+Create package CSPKS_FO_GW_HSX ...
+
+Package created.
+
+
+Package body created.
+
+Create package CSPKS_FO_TRANS ...
+
+Package created.
+
+
+Package body created.
+
+
+build timesten sucessfull.
+
+ttIsql is not currently spooling to a file.
+
+exit;
+Disconnecting from fotest...
+Disconnecting from cacheadm...
+Disconnecting from back...
+Done.
+[fo@app163 timesten_script]$

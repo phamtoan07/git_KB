@@ -1,0 +1,21 @@
+Hướng dẫn start stop servicemix bằng KARAF service
+0. Kiểm tra
+	a. Chắc chắn rằng đã thực hiện đúng cài đặt Servicemix theo file SetupFiles/4.ServiceMixSetup.txt hoặc tài liệu hướng dẫn cài đặt Cai_dat_TimesTen_HFT.docx
+	b. Đảm bảo rằng servicemix đã tắt
+		- Kiểm tra trạng thái hiện tại của servicemix: chạy file bin/status
+		- Nếu trạng thái là "đang chạy", stop servicemix bằng cách: chạy file bin/stop
+		- Kiểm tra lại trạng thái
+1. Start, Stop KARAF-service
+	Start:
+		Chạy file KARAF-service với arg start
+			vd:
+				./KARAF-service start
+	Stop:
+		Chạy file KARAF-service với arg stop
+			vd:
+				./KARAF-service stop
+2. SSH vào servicemix
+	Port: 8101
+	User: smx
+	Command:
+		ssh -p 8101 smx@localhost

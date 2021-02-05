@@ -1,0 +1,102 @@
+FO Packages Installation
+**********************
+
+Create package CSPKS_FO_COMMON ...
+
+Package created.
+
+
+Package body created.
+
+Create package CSPKS_FO_VALIDATION ...
+
+Package created.
+
+
+Package body created.
+
+Create package CSPKS_FO_RESET_SEQUENCE ...
+
+Package created.
+
+
+Package body created.
+
+Create package CSPKS_FO_POOLROOM ...
+
+Package created.
+
+
+Package body created.
+
+Create package CSPKS_FO_ORDER ...
+
+Package created.
+
+
+Package body created.
+
+Create package CSPKS_FO_ORDER_ADV ...
+
+Package created.
+
+
+Package body created.
+
+Create package CSPKS_FO_ORDER_NEW ...
+
+Package created.
+
+
+Package body created.
+
+Create package CSPKS_FO_ORDER_AMEND ...
+ 8507: ORA-04043: object CSPKS_FO_ORDER_AMEND does not exist
+
+Package created.
+
+
+Package body created.
+
+Create package CSPKS_FO_ORDER_CROSS ...
+
+Package created.
+
+
+Package body created.
+
+Create package CSPKS_FO_ORDER_RESPONE ...
+
+Package created.
+
+
+Package body created.
+
+Create package CSPKS_FO_ORDER_CANCEL ...
+
+Package created.
+
+
+Package body created.
+
+Create package CSPKS_FO_GW_HNX ...
+
+Package created.
+
+
+Package body created.
+
+Create package CSPKS_FO_GW_HSX ...
+
+Package created.
+
+
+Package body created.
+
+Create package CSPKS_FO_TRANS ...
+
+Package created.
+
+
+Package body created.
+

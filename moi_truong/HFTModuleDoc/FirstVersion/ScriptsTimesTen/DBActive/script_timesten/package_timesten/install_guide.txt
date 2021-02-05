@@ -1,0 +1,13 @@
+FO Package Installation
+**********************
+
+To install timesten packages, please do follow steps:
+1.Login to centos server
+2.Copy all files in this folder into a directory on server
+2.Go to directory that contains install.sql file
+3.Login to timesten (ttisql)
+4.Login to timesten user
+5.run command : @install.sql
+6.check packages
+
+

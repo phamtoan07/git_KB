@@ -1,0 +1,49 @@
+A. Tạo user để cài đặt TimesTen:
+	Suggest, user/pass: fo
+	cmd: 
+		useradd fo
+		passwd fo
+	Đặt pass: fo
+	
+B. Config OS:
+	1. Yêu cầu hệ điều hành: Linux Redhat 6
+	2. Sử dụng user root để thực hiện:
+		Config (hoặc add) các giá trị sau trong file: /etc/sysctl.conf
+				#300 TimesTen connection
+				net.ipv4.ip_local_port_range = 9000 65500
+				fs.file-max = 6815744
+				kernel.shmall = 10523004
+				kernel.shmmax = 10465333657
+				kernel.shmmni = 4096
+				kernel.sem = 2047 32000 100 128
+				net.core.rmem_default=262144
+				net.core.wmem_default=262144
+				net.core.rmem_max=4194304
+				net.core.wmem_max=1048576
+				fs.aio-max-nr = 1048576 
+				fs.file-max = 655360
+	3. Config file /etc/hosts
+		Config ip và alias cả 2 máy Active và Standby
+		Ví dụ:
+			192.168.1.107 foActive
+			192.168.1.106 foStandby
+	4. Sử dụng user root, 
+	Sửa file: /etc/sysctl.conf 
+		Thêm:
+			*  soft nproc  65535
+			*  hard nproc  65535
+			*  soft nofile 65535
+			*  hard nofile 65535
+	Sửa file: /etc/security/limits.conf
+		Thêm:
+			*  soft nproc  65535
+			*  hard nproc  65535
+			*  soft nofile 65535
+			*  hard nofile 65535
+	Sửa file: /etc/security/limits.d/90-nproc.conf
+		Thêm:
+			*  soft nproc  65535
+			*  hard nproc  65535
+			*  soft nofile 65535
+			*  hard nofile 65535
+	Exit user root.

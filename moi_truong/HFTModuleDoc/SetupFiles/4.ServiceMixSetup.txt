@@ -1,0 +1,105 @@
+Cài đặt ServiceMix:
+1. Kết nối internet.
+	Sử dụng user fo trỏ tới $HOME:
+	cmd:
+		cd $HOME
+2. Tải và giải nén ServiceMix
+	cmd:
+		wget http://archive.apache.org/dist/servicemix/servicemix-5/5.1.2/apache-servicemix-5.1.2.zip
+		unzip apache-servicemix-5.1.2.zip
+3. Copy toàn bộ thư mục ext đè lên thư mục /home/fo/apache-servicemix-5.1.2/lib/ext
+4. Chạy ServiceMix:
+	cmd:
+		cd apache-servicemix-5.1.2/bin
+		./servicemix
+5. Cấu hình servicemix
+	- Cài đặt các feature cần thiết của ServiceMix:
+		cmd:
+			features:install war
+			--features:install webconsole
+			--features:install activemq-web-console
+			features:install wrapper
+	- Cài đặt thư viện khác:
+		cmd:
+			osgi:install wrap:file:./lib/ext/camel-disruptor-2.13.2.jar
+			osgi:install -s wrap:file:./lib/ext/ttjdbc7.jar
+			osgi:install -s wrap:file:./lib/ext/ttjdbc8.jar
+			osgi:install -s wrap:file:./lib/ext/ojdbc5-0.jar
+			osgi:install -s wrap:file:./lib/ext/jackson-core-2.4.2.jar
+			osgi:install wrap:file:./lib/ext/jackson-coreutils-1.8.jar
+			osgi:install -s wrap:file:./lib/ext/jackson-annotations-2.4.2.jar
+			osgi:install -s wrap:file:./lib/ext/jackson-databind-2.4.2.jar
+			osgi:install -s wrap:file:./lib/ext/jackson-core-asl-1.9.2.jar
+			osgi:install -s wrap:file:./lib/ext/jackson-mapper-asl-1.9.2.jar
+			osgi:install -s wrap:file:./lib/ext/jackson-module-jaxb-annotations-2.4.2.jar
+			osgi:install -s wrap:file:./lib/ext/jackson-dataformat-xml-2.4.2.jar
+			osgi:install -s wrap:file:./lib/ext/org.apache.servicemix.bundles.oro-2.0.8_6.jar
+			osgi:install -s wrap:file:./lib/ext/org.apache.servicemix.bundles.json-lib-2.4_1.jar
+			osgi:install wrap:file:./lib/ext/slf4j-api-1.7.9.jar
+			osgi:install -s wrap:file:./lib/ext/commons-lang3-3.1.jar
+			osgi:install -s wrap:file:./lib/ext/commons-collections4-4.0.jar
+			osgi:install -s wrap:file:./lib/ext/jaxb-impl-2.2.6.jar
+			osgi:install -s wrap:file:./lib/ext/protobuf-java-2.6.0.jar
+			osgi:install -s wrap:file:./lib/ext/protobuf-java-format-1.2.jar
+			osgi:install -s wrap:file:./lib/ext/commons-beanutils-core-1.8.3.jar
+			osgi:install -s wrap:file:./lib/ext/commons-codec-1.9.jar 
+			osgi:install -s wrap:file:./lib/ext/hawtbuf-1.9.jar
+			osgi:install -s wrap:file:./lib/ext/libphonenumber-6.0.jar
+			osgi:install -s wrap:file:./lib/ext/jopt-simple-4.7.jar
+			osgi:install -s wrap:file:./lib/ext/joda-time-2.3.jar
+			osgi:install -s wrap:file:./lib/ext/guava-16.0.jar
+			osgi:install -s wrap:file:./lib/ext/genson-1.1.jar
+			osgi:install -s wrap:file:./lib/ext/btf-1.2.jar
+			osgi:install wrap:file:./lib/ext/msg-simple-1.1.jar
+			osgi:install -s wrap:file:./lib/ext/uri-template-0.9.jar 
+			osgi:install -s wrap:file:./lib/ext/gw_custom_lib.jar
+			osgi:install -s wrap:file:./lib/ext/json-schema-core-1.2.4.jar
+			osgi:install -s wrap:file:./lib/ext/json-schema-validator-2.2.5.jar
+			osgi:install -s wrap:file:./lib/ext/spring-core-3.2.8.RELEASE.jar
+			osgi:install -s wrap:file:./lib/ext/spring-beans-3.2.8.RELEASE.jar
+			osgi:install -s wrap:file:./lib/ext/spring-context-3.2.8.RELEASE.jar
+			osgi:install -s wrap:file:./lib/ext/spring-jms-3.2.8.RELEASE.jar
+			osgi:install -s wrap:file:./lib/ext/jmscommon.jar
+			--features:install camel-sql
+			--features:install camel-jdbc
+			--features:install camel-jackson
+			osgi:install -s wrap:file:./lib/ext/aqapi.jar
+			osgi:install -s wrap:file:./lib/ext/ojdbc5.jar
+	- Shutdown servicemix
+		cmd:
+			shutdown
+6. Sửa file: /home/fo/apache-servicemix-5.1.2/etc/custom.properties
+	Thêm dòng sun.misc; version="0.0.0",\ vào sau dòng org.osgi.framework.system.packages.extra = \		
+	Vào lại servicemix
+	Cài đặt:
+		cmd: 	
+			features:install camel-disruptor
+			wrapper:install -s AUTO_START -n KARAF -d Karaf -D "Karaf Service"
+	- Shutdown servicemix
+		cmd:
+			shutdown 
+7. Sửa file: /home/fo/apache-servicemix-5.1.2/etc/KARAF-wrapper.conf
+	Xóa:
+		# Initial Java Heap Size (in MB)
+		#wrapper.java.initmemory=3
+		# Maximum Java Heap Size (in MB)
+		wrapper.java.maxmemory=512
+	Thêm:
+		##### Set Timesten Native Libraries ##### 
+		set.default.TT=/home/fo/TimesTen/tt1122
+		wrapper.java.library.path.2=%TT%/bin/
+		wrapper.java.library.path.3=%TT%/lib/
+		# Initial Java Heap Size (in MB)
+		wrapper.java.initmemory=1024
+		# Maximum Java Heap Size (in MB)
+		wrapper.java.maxmemory=6144
+8. Sửa file: /home/fo/apache-servicemix-5.1.2/bin/setenv
+	Thêm:
+		export JAVA_MIN_MEM=1024M
+		export JAVA_MAX_MEM=6144M
+		export JAVA_PERM_MEM=1024M
+		export JAVA_MAX_PERM_MEM=6144M
+9. Copy thư mục newfo (chứa các file xsd và file config) vào /home/fo/
+10. Copy file setting log4j của service
+	Copy file: org.ops4j.pax.logging.cfg
+	Vào thư mục (copy đè): /home/fo/apache-servicemix-5.1.2/etc/

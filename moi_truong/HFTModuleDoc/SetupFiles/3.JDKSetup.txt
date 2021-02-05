@@ -1,0 +1,15 @@
+Cài đặt JDK:
+1. Tải bản JDK 1.7 cho linux từ máy remote:
+	Suggest: https://download.oracle.com/otn/java/jdk/7u80-b15/jdk-7u80-linux-x64.tar.gz
+2. Copy và giải nén vào thư mục thư mục: /home/fo
+	cmd:
+		tar -xvf /home/fo/jdk-7u80-linux-x64.tar.gz
+3. Tạo các thư mục:
+	cmd:
+		mkdir -p ~/.java/.systemPrefs
+		mkdir ~/.java/.userPrefs
+		chmod -R 755 ~/.java
+3. Cập nhật biến môi trường, sửa file /home/fo/.bash_profile
+	export JAVA_OPTS='-Djava.util.prefs.systemRoot=/home/user/.java -Djava.util.prefs.userRoot=/home/user/.java/.userPrefs'
+	export JAVA_HOME=$HOME/jdk1.7.0_80/
+	

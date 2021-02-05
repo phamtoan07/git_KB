@@ -1,0 +1,23 @@
+Cấu hình DNS:
+1. Cấu hình dsn trong file /TimesTen/tt1122/info/sys.odbc.ini
+		[FOTEST]
+		Driver=/home/fo/TimesTen/tt1122/lib/libtten.so
+		DataStore=/home/fo/TimesTen/tt1122/info/DataStore/FOTEST
+		PermSize=7400
+		TempSize=1200
+		PLSQL=1
+		DatabaseCharacterSet=AL32UTF8
+		OracleNetServiceName=FLEX64
+		OraclePWD=cacheadm
+		ConnectionCharacterSet=AL32UTF8
+		Connections=300
+		DynamicLoadEnable=0
+	*Lưu ý:
+		[FOTEST]: dns name
+		OracleNetServiceName: tns name db persist
+2. Tạo thư mục /home/fo/TimesTen/tt1122/info/DataStore
+	cmd
+		mkdir /home/fo/TimesTen/tt1122/info/DataStore
+3. Thêm TNS DB PERSIST vào file: /home/fo/TimesTen/tt1122/network/admin/tnsnames.ora
+	(tạo mới file nếu chưa có)
+	

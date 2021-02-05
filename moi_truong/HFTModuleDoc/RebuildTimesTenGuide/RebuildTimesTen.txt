@@ -1,0 +1,17 @@
+Build TimesTen:
+Sử dụng user fo:
+1. Copy thư mục timesten_script vào /home/fo/TimesTen
+2. Sửa file: timesten_script/build_timesten.sh
+	Dòng: ttDestroy <tên DNS>
+	Dòng ttisql -f build_timesten.sql -connstr "<tên DNS>" 
+3. Sửa file: timesten_script/build_timesten.sql
+	Các dòng:
+		DEFINE hostname=<tên máy>;
+		DEFINE gridname=fotestgrid;
+		DEFINE adminname=<cacheadm>;
+		DEFINE adminpassword=<pass cacheadm>;
+		DEFINE oraclepwd=cacheadm;
+		DEFINE db_user_name=<schema DB persit name>;
+		DEFINE db_user_pwd=<schema DB persit pass>;
+4. Chạy file timesten_script/build_timesten.sh
+	*Lưu ý, cần cấp quyền execute cho user fo với file build_timesten.sh
