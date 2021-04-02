@@ -1,0 +1,11 @@
+SQL> 
+SQL> conn HOSTKBSVD/HOST@FLEX129;
+Connected.
+SQL> 
+SQL> @@D:\FSS_KB\git\flexdb\1.BDSHOST/Parameters/MASTER_TRANS/BDS_MASTER_TRANS_SA.SECBASKET.sql
+SP2-0042: unknown command "﻿- --" - rest of line ignored.
+SQL> @@D:\FSS_KB\git\flexdb\1.BDSHOST/Parameters/MASTER_TRANS/BDS_MASTER_TRANS_SA.SECBASKETEXT.sql
+SP2-0042: unknown command "﻿- --" - rest of line ignored.
+SQL> 
+SQL> 
+SQL> SPOOL OFF;

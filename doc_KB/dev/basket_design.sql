@@ -1,20 +1,23 @@
 ﻿select * from basket;
-
+--drop table BASKETEXT;
+select * from SECBASKET;
+----
 --Thông tin rổ đặc biệt
 CREATE TABLE BASKETEXT 
 (
   BASKETID   VARCHAR2(50),
   BASKETNAME VARCHAR2(150),
-  FROMDATE   DATE,--DEFAULT SYSDATE
+  FROMDATE   DATE,
   EXPDATE    DATE,
   STATUS     VARCHAR2(1),
+  PSTATUS    VARCHAR2(200),
   NOTES      VARCHAR2(250)
 );
 
 --Chứng khoán trong rổ đặc biệt
 create table SECBASKETEXT 
 (
-  AUTOID      NUMBER(20)
+  AUTOID      NUMBER(20),
   BASKETID    VARCHAR2(50),
   SYMBOL      VARCHAR2(20) NOT NULL,
   MRRATIORATE NUMBER(20,4) DEFAULT 0,
@@ -27,11 +30,12 @@ create table SECBASKETEXT
   NEWMRPRICERATE NUMBER(20,4), --GIA TINH TAI SAN MOI
   EFFDATE     DATE             --NGAY HIEU LUC
 );
+create sequence seq_secbasketext;
 
 --Thông tin thay đổi tỉ lệ chờ thực hiện
 create table SECBASKETEXTEFFDT
 (
-  AUTOID      NUMBER(20)
+  AUTOID      NUMBER(20),
   BASKETID    VARCHAR2(50),
   SYMBOL      VARCHAR2(20) NOT NULL,
   NEWMRRATIORATE NUMBER(20,4), --TI LE TINH TAI SAN MOI
@@ -41,14 +45,18 @@ create table SECBASKETEXTEFFDT
   ISPROCESS   VARCHAR2(1),
   DELTD       VARCHAR2(1)            
 );
+create sequence seq_SECBASKETEXTEFFDT;
 
 --Thông tin careby rổ đặc biệt
+drop table CAREBYBASKETEXT;
 create table CAREBYBASKETEXT
 (
+  AUTOID      NUMBER(20),
   BASKETID    VARCHAR2(50),
   CAREBYID    VARCHAR2(4) NOT NULL,
   CAREBYNAME  VARCHAR2(50)
 );
+create sequence seq_carebybasketext;
 
 select * from fldmaster where objname like '%CF.CFMAST%';
 
@@ -68,17 +76,18 @@ AND GR.GRPID IN
 --Thông tin tiểu khoản gán rổ đặc biệt
 create table AFBASKETEXT
 (
-  AUTOID     NUMBER(20)
+  AUTOID     NUMBER(20),
   BASKETID   VARCHAR2(50),
-  ACTYPE     VARCHAR(1),--U -> SỐ TIỂU KHOẢN, G -> GROUP
   ACCTNO     VARCHAR2(20),
   CUSTODYCD  VARCHAR2(20),
   CUSTNAME   VARCHAR2(100),
   GRPACCT    VARCHAR2(10),
+  GRPNAME    VARCHAR2(50),
   EXPDATE    DATE,
-  STATUS     VARCHAR2(1)
+  STATUS     VARCHAR2(1),
+  PSTATUS    VARCHAR2(200)
 );
-
+create sequence seq_afbasketext;
 select * from cmdmenu where cmdid = '020132';
 select * from grmaster where objname like '%DBNAVGRP%'
 select * from DBNAVGRP;
@@ -101,7 +110,5 @@ select * from user_Source where upper(text) like '%T_FO_EVENT%';
 select * from filemaster where filecode = 'I002';
 select * from SECBASKETTEMP;
 select * from SECBASKETTEMPDTL;
-
-FILLTER_SEC_BASKET
 
 

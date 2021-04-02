@@ -24,6 +24,7 @@ select * from LNTYPE where ACTYPE = '0110';
 -----------Quản lý loại hình tín dụng
 select * from cmdmenu where objname like '%LNTYPE%'; --> Loại hình tín dụng cmdid = 032027
 --> Gán lọia hình tín dụng vào loại hình tiểu khoản
+select * from fldmaster where objname = 'LN.LNTYPE';
 select * from LNTYPE;
 select * from aftype;
 -----------

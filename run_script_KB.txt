@@ -1,0 +1,71 @@
+SET TRUNC OFF
+SET HEADING OFF
+SET ECHO OFF
+SET DEFINE OFF
+SET FEEDBACK OFF
+SET VERIFY OFF
+SET TERMOUT OFF
+SPOOL D:\FSS_KB\git_KB\log_BDS_TEST.log
+conn BDSKBSVT/BDS@FLEX129;
+
+@@D:\FSS_KB\git\flexdb\1.BDSHOST/Parameters/SEARCH_SEARCHFLD/BDS_SEARCH_SEARCHFLD_LN5581.sql
+@@D:\FSS_KB\git\flexdb\1.BDSHOST/Parameters/SEARCH_SEARCHFLD/BDS_SEARCH_SEARCHFLD_LN5582.sql
+
+SPOOL OFF;
+
+SET TRUNC OFF
+SET HEADING OFF
+SET ECHO OFF
+SET DEFINE OFF
+SET FEEDBACK OFF
+SET VERIFY OFF
+SET TERMOUT OFF
+SPOOL D:\FSS_KB\git_KB\log_HOST_TEST.log
+conn HOSTKBSVT/HOST@FLEX129;
+
+@@D:\FSS_KB\git\flexdb\2.HOST/0.ChangeScripts/kbpl08/alter_table_lnspecrateacct.sql
+@@D:\FSS_KB\git\flexdb\2.HOST/0.ChangeScripts/kbpl08/alter_table_lnspecrateacct_log.sql
+@@D:\FSS_KB\git\flexdb\2.HOST/0.ChangeScripts/kbpl08/create_table_LNAFRATEDTLHIST.sql
+@@D:\FSS_KB\git\flexdb\2.HOST/3.Procedure/pr_backup_lnspecrateacct.sql
+@@D:\FSS_KB\git\flexdb\2.HOST/3.Procedure/pr_calc_afassrate.sql
+@@D:\FSS_KB\git\flexdb\2.HOST/5.Package/TXPKS_#5580EX.sql
+@@D:\FSS_KB\git\flexdb\2.HOST/5.Package/TXPKS_#5581EX.sql
+@@D:\FSS_KB\git\flexdb\2.HOST/5.Package/TXPKS_#5582EX.sql
+@@D:\FSS_KB\git\flexdb\2.HOST/5.Package/cspks_filemaster.sql
+@@D:\FSS_KB\git\flexdb\2.HOST/5.Package/txpks_batch.sql
+
+SPOOL OFF;
+
+
+SET TRUNC OFF
+SET HEADING OFF
+SET ECHO OFF
+SET DEFINE OFF
+SET FEEDBACK OFF
+SET VERIFY OFF
+SET TERMOUT OFF
+SPOOL D:\FSS_KB\git_KB\log_HOST_DEV.log
+
+conn HOSTKBSVD/HOST@FLEX129;
+
+@@D:\FSS_KB\git\flexdb\1.BDSHOST/Parameters/MASTER_TRANS/BDS_MASTER_TRANS_SA.SECBASKET.sql
+@@D:\FSS_KB\git\flexdb\1.BDSHOST/Parameters/MASTER_TRANS/BDS_MASTER_TRANS_SA.SECBASKETEXT.sql
+
+
+SPOOL OFF;
+
+SET TRUNC OFF
+SET HEADING OFF
+SET ECHO OFF
+SET DEFINE OFF
+SET FEEDBACK OFF
+SET VERIFY OFF
+SET TERMOUT OFF
+SPOOL D:\FSS_KB\git_KB\log_BDS_DEV.log
+
+conn BDSKBSVD/BDS@FLEX129;
+
+@@D:\FSS_KB\git\flexdb\1.BDSHOST/Parameters/MASTER_TRANS/BDS_MASTER_TRANS_SA.SECBASKET.sql
+@@D:\FSS_KB\git\flexdb\1.BDSHOST/Parameters/MASTER_TRANS/BDS_MASTER_TRANS_SA.SECBASKETEXT.sql
+
+SPOOL OFF;
