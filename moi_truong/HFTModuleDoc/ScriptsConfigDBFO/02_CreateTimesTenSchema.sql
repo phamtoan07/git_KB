@@ -103,7 +103,7 @@ BEGIN
 				END IF;
 			DBMS_OUTPUT.NEW_LINE;
 			DBMS_OUTPUT.PUT_LINE('***************** Creation of TT_CACHE_ADMIN_ROLE starts ******************');
-			executeString('CREATE USER timesten IDENTIFIED BY timesten  DEFAULT TABLESPACE ' || tableSpaceName || ' quota 5M ON ' || tableSpaceName || ' account LOCK', -1920);
+			executeString('CREATE USER timesten IDENTIFIED BY timesten  DEFAULT TABLESPACE ' || 'ttusers' || ' quota 5M ON ' || 'ttusers' || ' account LOCK', -1920);
 			-- Now create the TT_GRIDID table 
 			executeString('CREATE TABLE timesten.TT_GRIDID(gridIdNum int NOT NULL, comment_t varchar2(4000))', -955); 
 
@@ -138,7 +138,7 @@ BEGIN
 			DBMS_OUTPUT.NEW_LINE;
 			DBMS_OUTPUT.PUT_LINE('1. Creating TIMESTEN schema');
 
-			executeString('CREATE USER timesten IDENTIFIED BY timesten  DEFAULT TABLESPACE ' || tableSpaceName || ' quota 5M ON ' || tableSpaceName || ' account LOCK', -1920);
+			executeString('CREATE USER timesten IDENTIFIED BY timesten  DEFAULT TABLESPACE ' || 'ttusers' || ' quota 5M ON ' || 'ttusers' || ' account LOCK', -1920);
 
 			-- Now create the TT_GRIDID table 
 			DBMS_OUTPUT.NEW_LINE;

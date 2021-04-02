@@ -19,7 +19,7 @@ impdp system/123456@FLEX129 schemas=bds remap_schema=bds:BDSKBSVT directory=DATA
 -------DB FOTEST
 expdp FOTEST/FOTEST@FO directory=DATA_PUMP_DIR dumpfile=FOTEST_20211401.dmp logfile=expdpFOTEST_20211401.log
 
-impdp system/123456 schemas=FOTEST remap_schema=FOTEST:FOTEST remap_tablespace=USERS:FOTEST directory=DATA_PUMP_DIR dumpfile=FOTEST_20211401.dmp logfile=impFOTEST_20212501.txt
+impdp system/123456@FLEX207 schemas=FOTEST remap_schema=FOTEST:FOTEST remap_tablespace=USERS:FOTEST directory=DATA_PUMP_DIR dumpfile=FOTEST_20211401.dmp logfile=impFOTEST_20211603.txt
 
 -------DB CACHEADM
 expdp CACHEADM/cacheadm@FO directory=DATA_PUMP_DIR dumpfile=CACHEADM_20212501.dmp logfile=expdpCACHEADM_20212501.log
