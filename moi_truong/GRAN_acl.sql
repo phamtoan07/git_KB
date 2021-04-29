@@ -4,14 +4,19 @@ BEGIN
 DBMS_NETWORK_ACL_ADMIN.CREATE_ACL(
   acl => 'www.xml', 
   description => 'WWW ACL', 
-  principal   => 'HOSTKBSVD', 
+  principal   => 'HOSTKBSVT', 
   is_grant    => true, 
   privilege   => 'connect');
 DBMS_NETWORK_ACL_ADMIN.ADD_PRIVILEGE(
   acl => 'www.xml', 
-  principal => 'HOSTKBSVD', 
+  principal => 'HOSTKBSVT', 
   is_grant  => true, 
-  privilege => 'resolve'); 
+  privilege => 'resolve');
+DBMS_NETWORK_ACL_ADMIN.ADD_PRIVILEGE(
+  acl => 'www.xml', 
+  principal => 'HOSTKBSVT', 
+  is_grant  => true, 
+  privilege => 'connect'); 
 END;
 
 BEGIN

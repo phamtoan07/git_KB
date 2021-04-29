@@ -1,43 +1,16 @@
 SQL> conn BDSKBSVT/BDS@FLEX129;
 Connected.
-SQL> @D:\FSS_KB\git\flexdb\1.BDSHOST/Parameters/CMDMENU/BDS_CMDMENU_111500.sql
+SQL> 
+SQL> @@D:\FSS_KB\git\flexdb\1.BDSHOST/Parameters/ALLCODE/BDS_ALLCODE_CF_REGTYPE.sql
+SP2-0310: unable to open file "D:\FSS_KB\git\flexdb\1.BDSHOST/Parameters/ALLCODE/BDS_ALLCODE_CF_REGTYPE.sql"
+SQL> @@D:\FSS_KB\git\flexdb\1.BDSHOST/Parameters/DEFERROR/BDS_DEFERROR_CF.sql
 SP2-0042: unknown command "﻿- --" - rest of line ignored.
-
-Warning: Package Body created with compilation errors.
-
-SQL> @D:\FSS_KB\git\flexdb\1.BDSHOST/Parameters/DEFERROR/BDS_DEFERROR_CF.sql
+SP2-0103: Nothing in SQL buffer to run.
+SQL> @@D:\FSS_KB\git\flexdb\1.BDSHOST/Parameters/DEFERROR/BDS_DEFERROR_SA.sql
 SP2-0042: unknown command "﻿- --" - rest of line ignored.
-SQL> @D:\FSS_KB\git\flexdb\1.BDSHOST/Parameters/DEFERROR/BDS_DEFERROR_LN.sql
+SQL> @@D:\FSS_KB\git\flexdb\1.BDSHOST/Parameters/MASTER_TRANS/BDS_MASTER_TRANS_SA_PRODUCT_TC.sql
 SP2-0042: unknown command "﻿- --" - rest of line ignored.
-SQL> @D:\FSS_KB\git\flexdb\1.BDSHOST/Parameters/DEFERROR/BDS_DEFERROR_SA.sql
+SQL> @@D:\FSS_KB\git\flexdb\1.BDSHOST/Parameters/SEARCH_SEARCHFLD/BDS_SEARCH_SEARCHFLD_CF0203.sql
 SP2-0042: unknown command "﻿- --" - rest of line ignored.
-SQL> @D:\FSS_KB\git\flexdb\1.BDSHOST/Parameters/FILEMAP/BDS_FILEMAP_I075.sql
-SP2-0042: unknown command "﻿- --" - rest of line ignored.
-SQL> @D:\FSS_KB\git\flexdb\1.BDSHOST/Parameters/FILEMASTER/BDS_FILEMASTER_I039.sql
-SP2-0042: unknown command "﻿/" - rest of line ignored.
-SQL> @D:\FSS_KB\git\flexdb\1.BDSHOST/Parameters/MASTER_TRANS/BDS_MASTER_TRANS_0202.sql
-SP2-0042: unknown command "﻿- --" - rest of line ignored.
-SQL> @D:\FSS_KB\git\flexdb\1.BDSHOST/Parameters/MASTER_TRANS/BDS_MASTER_TRANS_5580.sql
-SP2-0042: unknown command "﻿- --" - rest of line ignored.
-SQL> @D:\FSS_KB\git\flexdb\1.BDSHOST/Parameters/MASTER_TRANS/BDS_MASTER_TRANS_5581.sql
-SP2-0042: unknown command "﻿- --" - rest of line ignored.
-SQL> @D:\FSS_KB\git\flexdb\1.BDSHOST/Parameters/MASTER_TRANS/BDS_MASTER_TRANS_5582.sql
-SP2-0042: unknown command "﻿- --" - rest of line ignored.
-SQL> @D:\FSS_KB\git\flexdb\1.BDSHOST/Parameters/MASTER_TRANS/BDS_MASTER_TRANS_SA.SECBASKET.sql
-SP2-0042: unknown command "﻿- --" - rest of line ignored.
-INSERT INTO FLDVAL  FLDNAME, OBJNAME, ODRNUM, VALTYPE, OPERATOR, VALEXP, VALEXP2, ERRMSG, EN_ERRMSG, TAGFIELD, TAGVALUE, CHKLEV)
-                           *
-ERROR at line 1:
-ORA-00926: missing VALUES keyword 
-
-
-SQL> @D:\FSS_KB\git\flexdb\1.BDSHOST/Parameters/SEARCH_SEARCHFLD/BDS_SEARCH_SEARCHFLD_LN5581.sql
-SP2-0042: unknown command "﻿- --" - rest of line ignored.
-SQL> @D:\FSS_KB\git\flexdb\1.BDSHOST/Parameters/SEARCH_SEARCHFLD/BDS_SEARCH_SEARCHFLD_LN5582.sql
-SP2-0042: unknown command "﻿- --" - rest of line ignored.
-SQL> @D:\FSS_KB\git\flexdb\1.BDSHOST/Parameters/SEARCH_SEARCHFLD/BDS_SEARCH_SEARCHFLD_LNSPECRATELIST.sql
-SP2-0042: unknown command "﻿- --" - rest of line ignored.
-SQL> @D:\FSS_KB\git\flexdb\1.BDSHOST/Parameters/SEARCH_SEARCHFLD/BDS_SEARCH_SEARCHFLD_PRODUCT_REG.sql
-SP2-0042: unknown command "﻿- --" - rest of line ignored.
-SQL> COMMIT;
+SQL> 
 SQL> SPOOL OFF;

@@ -8,8 +8,11 @@ SET TERMOUT OFF
 SPOOL D:\FSS_KB\git_KB\log_BDS_TEST.log
 conn BDSKBSVT/BDS@FLEX129;
 
-@@D:\FSS_KB\git\flexdb\1.BDSHOST/Parameters/SEARCH_SEARCHFLD/BDS_SEARCH_SEARCHFLD_LN5581.sql
-@@D:\FSS_KB\git\flexdb\1.BDSHOST/Parameters/SEARCH_SEARCHFLD/BDS_SEARCH_SEARCHFLD_LN5582.sql
+@@D:\FSS_KB\git\flexdb\1.BDSHOST/Parameters/ALLCODE/BDS_ALLCODE_CF_REGTYPE.sql
+@@D:\FSS_KB\git\flexdb\1.BDSHOST/Parameters/DEFERROR/BDS_DEFERROR_CF.sql
+@@D:\FSS_KB\git\flexdb\1.BDSHOST/Parameters/DEFERROR/BDS_DEFERROR_SA.sql
+@@D:\FSS_KB\git\flexdb\1.BDSHOST/Parameters/MASTER_TRANS/BDS_MASTER_TRANS_SA_PRODUCT_TC.sql
+@@D:\FSS_KB\git\flexdb\1.BDSHOST/Parameters/SEARCH_SEARCHFLD/BDS_SEARCH_SEARCHFLD_CF0203.sql
 
 SPOOL OFF;
 
@@ -23,16 +26,17 @@ SET TERMOUT OFF
 SPOOL D:\FSS_KB\git_KB\log_HOST_TEST.log
 conn HOSTKBSVT/HOST@FLEX129;
 
-@@D:\FSS_KB\git\flexdb\2.HOST/0.ChangeScripts/kbpl08/alter_table_lnspecrateacct.sql
-@@D:\FSS_KB\git\flexdb\2.HOST/0.ChangeScripts/kbpl08/alter_table_lnspecrateacct_log.sql
-@@D:\FSS_KB\git\flexdb\2.HOST/0.ChangeScripts/kbpl08/create_table_LNAFRATEDTLHIST.sql
-@@D:\FSS_KB\git\flexdb\2.HOST/3.Procedure/pr_backup_lnspecrateacct.sql
-@@D:\FSS_KB\git\flexdb\2.HOST/3.Procedure/pr_calc_afassrate.sql
-@@D:\FSS_KB\git\flexdb\2.HOST/5.Package/TXPKS_#5580EX.sql
-@@D:\FSS_KB\git\flexdb\2.HOST/5.Package/TXPKS_#5581EX.sql
-@@D:\FSS_KB\git\flexdb\2.HOST/5.Package/TXPKS_#5582EX.sql
-@@D:\FSS_KB\git\flexdb\2.HOST/5.Package/cspks_filemaster.sql
-@@D:\FSS_KB\git\flexdb\2.HOST/5.Package/txpks_batch.sql
+@@D:\FSS_KB\git\flexdb\1.BDSHOST/Parameters/ALLCODE/BDS_ALLCODE_CF_REGTYPE.sql
+@@D:\FSS_KB\git\flexdb\1.BDSHOST/Parameters/DEFERROR/BDS_DEFERROR_CF.sql
+@@D:\FSS_KB\git\flexdb\1.BDSHOST/Parameters/DEFERROR/BDS_DEFERROR_SA.sql
+@@D:\FSS_KB\git\flexdb\1.BDSHOST/Parameters/MASTER_TRANS/BDS_MASTER_TRANS_SA_PRODUCT_TC.sql
+@@D:\FSS_KB\git\flexdb\1.BDSHOST/Parameters/SEARCH_SEARCHFLD/BDS_SEARCH_SEARCHFLD_CF0203.sql
+@@D:\FSS_KB\git\flexdb\2.HOST/5.Package/TXPKS_#0201EX.sql
+@@D:\FSS_KB\git\flexdb\2.HOST/5.Package/TXPKS_#0202EX.sql
+@@D:\FSS_KB\git\flexdb\2.HOST/5.Package/TXPKS_#0203EX.sql
+@@D:\FSS_KB\git\flexdb\2.HOST/7.Parameters/DEFERROR/HOST_DEFERROR_CF.sql
+@@D:\FSS_KB\git\flexdb\2.HOST/7.Parameters/DEFERROR/HOST_DEFERROR_SA.sql
+@@D:\FSS_KB\git\flexdb\2.HOST/7.Parameters/ALLCODE/BDS_ALLCODE_CF_REGTYPE.sql
 
 SPOOL OFF;
 
