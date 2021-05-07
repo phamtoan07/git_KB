@@ -1,20 +1,25 @@
 ﻿select * from pracctnomap where prcode = '1407' for update;
 select * from prmaster where prtyp in ('S','U') or prcode = '1407';
+
+update prmaster set prinused ='9927100555' where prcode in ('1407');
+
+
 --3112125929062 3045754003101
 --
 /*
-Hệ thống: 3090823169582
+Hệ thống: 3105484909625
 UB:       3048929419856
-1407:     24588840598
-Dư nợ tiểu khoản: 5145774307
+1407:     9927100555
+Dư nợ tiểu khoản: 0002000230: 696346209 3110630683932
 */
-select 3093238238097 - 3088464535487 from dual; --4773702610
+select 3105484909625 - 3110630683932 from dual; --4781326248
+select 9927100555-4781326248 from dual;
 --
 select * from prmasterlog order by createdate desc; --0001037053
 
-select * from t_fo_event order by autoid desc;
+select * from t_fo_event order by autoid desc; --345388
 select isfo from afmast where acctno = '0006000649';
-select * from tlog where luser = user order by id desc;
+select * from tlog where luser = user order by id desc; --168140
 ---
 --delete from t_fo_inday_ownpoolroom;
 select * from t_fo_inday_ownpoolroom;

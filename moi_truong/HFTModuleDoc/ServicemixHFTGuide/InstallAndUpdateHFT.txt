@@ -1,9 +1,8 @@
 A. Hướng dẫn Cài đặt HFT trên Servicemix
 	0. Kiểm tra
-		a. Chắc chắn rằng đã thực hiện đúng cài đặt Servicemix theo file SetupFiles/4.ServiceMixSetup.txt hoặc tài liệu hướng dẫn cài đặt Cai_dat_TimesTen_HFT.docx
+		a. Chắc chắn rằng đã thực hiện đúng cài đặt Servicemix
 		b. Đã copy 2 file newfo-processor-1.0.0.jar và newfo-bpsj-1.0.0.jar vào thưc mục lib/ext
-		c. Đã config theo hướng dẫn: GuideConfigHTF.txt
-		d. Servicemix đã được khởi động (Hướng dẫn StartStopServicemixByKarafService.txt)
+		c. Servicemix đã được khởi động
 	1. SSH vào servicemix
 	2. Install newfo-processor-1.0.0.jar
 		Command:

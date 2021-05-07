@@ -1033,10 +1033,11 @@
     <QueryKey>GETACCOUNTCLASS</QueryKey>
     <QueryValue>
       <![CDATA[
-      select a.cdcontent class 
-      from cfmast cf, allcode a 
+      select a.cdcontent class , NVL(ct.custpoint,0) custpoint
+      from cfmast cf, allcode a, customerpoint_total ct
       where a.cdname = 'CLASS' and a.cdtype = 'CF' and a.cdval in ('001','002','003','004') 
-      and a.cdval = cf.class and custodycd=:CUSTODYCD
+      and a.cdval = cf.class AND cf.custodycd = ct.custodycd (+)
+	  and cf.custodycd=:CUSTODYCD
       ]]>
     </QueryValue>
   </TableInfo>
@@ -1440,6 +1441,22 @@
     <QueryValue>
       <![CDATA[
         select * from area
+      ]]>
+    </QueryValue>
+  </TableInfo>
+  <TableInfo>
+    <QueryKey>GET_LIST_COUNTRY</QueryKey>
+    <QueryValue>
+      <![CDATA[
+        fopks_ekycapi.pr_get_country
+      ]]>
+    </QueryValue>
+  </TableInfo>
+  <TableInfo>
+    <QueryKey>GET_LIST_PROVINCE</QueryKey>
+    <QueryValue>
+      <![CDATA[
+        fopks_ekycapi.pr_get_province
       ]]>
     </QueryValue>
   </TableInfo>

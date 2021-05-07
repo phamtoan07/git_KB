@@ -1,5 +1,5 @@
 select af.acctno, odamt, odamt - nvl(t0.t0prin,0) amt, cf.brid, af.actype, nvl(t0.t0prin,0) t0prin,
-      nvl(lnt.chksysctrl,'N') chksysctrl
+      nvl(lnt.chksysctrl,'N') chksysctrl, lnt.actype
       from cimast ci, cfmast cf, afmast af,
            (select trfacctno,
                    sum(oprinnml + oprinovd + ointnmlacr + ointdue + ointovdacr + ointnmlovd) t0prin
@@ -18,7 +18,8 @@ select af.acctno, odamt, odamt - nvl(t0.t0prin,0) amt, cf.brid, af.actype, nvl(t
                  WHERE af.actype = typ.actype and typ.lntype = ln.Actype 
                       AND ln.Custbank = pr.custbank
                       and pr.prcode = '1407'))
-           and af.acctno = '0002008233'
+           and af.acctno = '0002008233';
+----
 ----
 select * from prmaster where prcode = '1407';
 select actype from afmast where acctno = '0002008233';
