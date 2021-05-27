@@ -1,0 +1,50 @@
+--F2 -> BrookerScreen.cs -> Combobox, button, label... events
+1. Số tiểu khoản -> Load lại sức mua:
+	1.1 BrookerScreen xử lý: BrookerScreen.cs
+		a. lueSubAccount_EditValueChanged
+		b. GetDataByAccount -> GetCustomerAuthorizedAsynchronous, GetAccountInfoAsynchronous
+		c. GetAccountInfoAsynchronous -> Build message -> ThreadSendMessageAsynchronous(objMessage, GetAccountInfoCallback)
+			objEntryModule, objEntryFunction, ...
+			var objEntryCustodyCode = new ObjectMessageObjDataEntry
+					{
+						fldname = Resources.CUSTODYCD_FIELD_NAME,
+						fldtype = Resources.PARAMETER_FIELD_TYPE,
+						Value = CurrentCustodyCode
+					};
+		d. Gửi message lên BPSService
+		e. GetAccountInfoCallback
+		f. ShowAccountInfomation -> set lại lblPP (Sức mua cơ bản)
+	1.2 BPSService xủ lý: OnlineTradingWcf.svc
+		a. ExecBOFunction (pv_funcname, pv_modulename, ByVal pv_keyfields As String(), ByVal pv_keyvalues As Object(),...)
+		   IsAddhoc, isCheckHFTRequire -> check vs HFT,
+		   pv_keyfields -> Array key, pv_keyvalues -> array value
+		b. IsAddHoc
+				Check HFTMODE: OFF -> return false
+							   FULL-> return true
+							   PARTIAL: -> FilterMapping(pv_funcname)
+							   
+		c. FilterMapping(pv_funcname)
+		    hftCache = getDataFromBOReturnDataSet("HFT_CACHE", "HFT", New String() {}, New Object() {})
+					-> SQL =  v_strSQL = UtilsObject.GetCommandString(String.Format("{0}{1}.xml", ModCommon.FILEPATH_Dir, pv_modulename), pv_funcname) -> HFT.XML
+						   =	select a.bps_function, a.bps_key_field, e.bps_key_value, d.fo_key,
+									   d.fo_field, d.fo_field_type, d.bps_field, d.fo_field_value, d.operator, d.valexp, a.fo_idx_table, a.bps_account_type, a.bps_account, d.alternative_value
+								  from hft_mapper a, hft_mapper_ext e, hft_mapper_detail d
+								 where a.bps_key_field is not null
+								   and a.bps_key_field = e.bps_key_field(+)
+								   and nvl(a.return_id, e.fo_key) = d.fo_key
+								union all
+								select a.bps_function, a.bps_key_field, '' bps_key_value, d.fo_key,
+									   d.fo_field, d.fo_field_type, d.bps_field, d.fo_field_value, d.operator, d.valexp, a.fo_idx_table, a.bps_account_type, a.bps_account, d.alternative_value
+								  from hft_mapper a, hft_mapper_detail d
+								 where a.return_id = d.fo_key
+			-> trả ra isRoute
+		d. ExecHFTRequest -> isRout = true
+		   isRout = true -> Querry xuống BO
+		   --select map của pv_keyvalues -> tìm trong sql -> nếu có thì đẩy HFT
+	1.3. Map tx:
+	    BPSJ -> check trong /META-INF.spring.bean.processor-bean.xml -> Lấy tên handler -> tìm trong /com.fss.newfo.service/
+			 -> lấy tên sqlMap.get -> tìm trong META-INF.spring.bean.datasource.xml
+				+ Sức mua cơ bản: tx6003
+	    Proccessor
+			-> check trong /META-INF.spring.bean.processor-service.xml -> Lấy tên service -> tìm trong /com.fss.newfo.service
+			-> Lấy câu SQL_SEL_..., SQL_UDP_... -> tìm trong META-INF.spring.bean.datasource.xml -> tìm câu SQL_UDP_...
