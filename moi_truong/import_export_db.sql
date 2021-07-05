@@ -1,5 +1,5 @@
 -------DB HOST
-expdp HOSTMSBST/HOST@FLEX_111 directory=DATA_PUMP_DIR dumpfile=HOSTMSBST_20211401.dmp logfile=expdpHOSTMSBST_20211401.log
+expdp HOSTKBSVT/HOST@FLEX129 directory=U02_DIR dumpfile=HOSTKBSVT_20210601.dmp logfile=HOSTKBSVT_20210601.log
 
 impdp system/123456@FLEX129 schemas=HOSTMSBST remap_schema=HOSTMSBST:HOSTKBSVD remap_tablespace=USERS:KBSV,KBSV:KBSV directory=DATA_PUMP_DIR dumpfile=HOSTMSBST_20211401.dmp logfile=impHOSTMSBST_20211801D.txt
 impdp system/123456@FLEX129 schemas=HOSTMSBST remap_schema=HOSTMSBST:HOSTKBSVT remap_tablespace=USERS:KBSV,KBSV:KBSV directory=DATA_PUMP_DIR dumpfile=HOSTMSBST_20211401.dmp logfile=impHOSTMSBST_20211801T.txt
@@ -9,7 +9,7 @@ impdp system/123456@FLEX129 schemas=host remap_schema=host:HOSTKBSVT remap_table
 -------
 
 -------DB BDS
-expdp BDSMSBST/BDS@FLEX_111 directory=DATA_PUMP_DIR dumpfile=BDSMSBST_20211401.dmp logfile=expdpBDSMSBST_20211401.log
+expdp BDSKBSVT/BDS@FLEX129 directory=U02_DIR dumpfile=BDSKBSVT_20210601.dmp logfile=BDSKBSVT_20210601.log
 
 impdp system/123456@FLEX129 schemas=BDSMSBST remap_schema=BDSMSBST:BDSKBSVD remap_tablespace=KBSV:KBSV directory=DATA_PUMP_DIR dumpfile=BDSMSBST_20211401.dmp logfile=impBDSMSBSD_20211801D.txt
 impdp system/123456@FLEX129 schemas=BDSMSBST remap_schema=BDSMSBST:BDSKBSVT remap_tablespace=KBSV:KBSV directory=DATA_PUMP_DIR dumpfile=BDSMSBST_20211401.dmp logfile=impBDSMSBST_20211801T.txt
@@ -26,7 +26,7 @@ expdp CACHEADM/cacheadm@FO directory=DATA_PUMP_DIR dumpfile=CACHEADM_20212501.dm
 
 impdp system/123456@FO163 schemas=CACHEADM remap_schema=CACHEADM:CACHEADM remap_tablespace=TTUSERS:FOTEST directory=DATA_PUMP_DIR dumpfile=CACHEADM_20212501.dmp logfile=impCACHEADM_20212501.txt
 
-
+select * from dba_datapump_jobs;
 ----------------
 
 execute dbms_metadata_util.load_stylesheets

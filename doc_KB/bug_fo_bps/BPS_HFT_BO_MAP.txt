@@ -39,12 +39,19 @@
 								 where a.return_id = d.fo_key
 			-> trả ra isRoute
 		d. ExecHFTRequest -> isRout = true
-		   isRout = true -> Querry xuống BO
+		   isRout = true -> Querry xuống FO
 		   --select map của pv_keyvalues -> tìm trong sql -> nếu có thì đẩy HFT
 	1.3. Map tx:
-	    BPSJ -> check trong /META-INF.spring.bean.processor-bean.xml -> Lấy tên handler -> tìm trong /com.fss.newfo.service/
+	    BPSJ -> check trong /META-INF.spring.bean.processor-bean.xml hoặc processor-service.xml -> Lấy tên handler -> tìm trong /com.fss.newfo.service/
 			 -> lấy tên sqlMap.get -> tìm trong META-INF.spring.bean.datasource.xml
 				+ Sức mua cơ bản: tx6003
 	    Proccessor
 			-> check trong /META-INF.spring.bean.processor-service.xml -> Lấy tên service -> tìm trong /com.fss.newfo.service
 			-> Lấy câu SQL_SEL_..., SQL_UDP_... -> tìm trong META-INF.spring.bean.datasource.xml -> tìm câu SQL_UDP_...
+
+2. Đặt/Hủy sửa lệnh
+	2.1 Bấm nút thực hiện
+	2.2 sbDoAction_Click -> gọi đến CheckOrderRules
+	2.3 ConfirmOrder: ActionFlag.Equals(ACTION_FLAG_AMENDMENT_ORDER) -> gọi đến sửa lệnh PlaceOrder(,...,)
+	2.4 BuildOrderMessage, p_functionname = AMENDMETORDER
+	2.5 -> sekect sql trng bps, -> BPS_KEY_VALUE = AMENDMENTORDER|| -> tx0200 ->  CSPKS_FO_ORDER.sp_create_amend_quote

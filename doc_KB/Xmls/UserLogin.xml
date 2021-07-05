@@ -346,6 +346,14 @@
       ]]>
       </QueryValue>
   </TableInfo>
+  <TableInfo>
+    <QueryKey>SUBMIT_OPENACCOUNT_CHECKPERSONALINFOR</QueryKey>
+    <QueryValue>
+      <![CDATA[
+      fopks_ekycapi.pr_checkacct_control 
+      ]]>
+    </QueryValue>
+  </TableInfo>
     <TableInfo>
       <QueryKey>GETLISTBRANCHINFOR</QueryKey>
       <QueryValue>
@@ -386,4 +394,21 @@
       ]]>
     </QueryValue>
   </TableInfo>
+  <TableInfo>
+    <QueryKey>SUBMIT_OPENACCOUNT_Full</QueryKey>
+    <QueryValue>
+      <![CDATA[
+      fopks_ekycapi.pr_openaccount_full
+      ]]>
+    </QueryValue>
+  </TableInfo>
+  <TableInfo>
+    <QueryKey>CHECK_OPENACCOUNT_INPUT</QueryKey>
+    <QueryValue>
+      <![CDATA[
+      fopks_ekycapi.pr_check_openaccount
+      ]]>
+    </QueryValue>
+  </TableInfo>  
+  
 </root>

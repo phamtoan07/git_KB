@@ -1,0 +1,73 @@
+---Giao dịch luồng net gọi FO
+select tx.TLTXCD,tx.TXCODE,tx.ACCTNO,tx.AMOUNT,tx.EXTRA,tx.QTTY,tx.CODEID, tx.SYMBOL, fm.MSGFORMAT, tx.DOC, tx.TXTYPE 
+from fotxmap tx, fotxformat fm 
+where tx.TXCODE= fm.TXCODE and fm.Status = 'Y' and tx.tltxcd ='5540' and tx.RUNMOD='NET'
+---================================================================================
+---Khai báo Lntype
+LNMAST.prepaid -> Có được trả gốc trước hạn: CDTYPE = 'SY' AND CDNAME = 'YESNO'
+LNMAST.advpay  -> Cho phép đảo nợ: CDTYPE = 'SY' AND CDNAME = 'YESNO'
+---================================================================================
+---VMR9000
+Old: prinovd+intovdacr+intnmlovd+oprinovd+ointovdacr+ointnmlovd
+	 + feeintovdacr+feeintnmlovd + NML (restype = 'S') + intdue + feeintdue
+new:
+	round(ls.nml)+round(ls.feeintovdacr)+round(ls.feeintnmlovd)+round(ls.feeintdue)+round(ls.intdue)
+	round(ls.ovd)+round(ls.intnmlacr)++round(ls.intovd)+round(ls.intovdprin)+round(ls.fee)+\
+	round(ls.feedue)+round(ls.feeovd)+round(ls.feeintnmlacr)+
+OLD ADVANCELINE
+---================================================================================
+---Proc checkpool_v2 HFT
+PROCEDURE cspks_fo_poolroom.sp_process_checkpool_v2(
+           p_err_code in OUT VARCHAR,
+           p_acctno    in varchar2,
+           f_poolid    IN VARCHAR, --ma pool
+           p_orderamt  IN NUMBER,  --So tien dung them pool
+           p_balance   in number,  --tien mat
+           p_advamt    in number, --UT
+           p_debt      in number, --no MR
+           p_mrcrlimit in number, --han muc MR
+           p_payable   in number, --phi lk
+           p_t0value   in number, --bao lanh
+           p_secureamt in number, --ky quy mua
+           p_rate_ub   in number, --accounts.RATE_UB
+           p_roomid    in varchar2,--accounts.ROOMID
+           p_dorc      in varchar2,--tang/giam
+           p_err_msg   OUT VARCHAR2,
+           p_poolval   out number, --gia tri pool can danh dau hoac nha danh dau
+           p_symbol    in varchar2 default null, --ma ck mua
+           p_addqtty   in number default 0, --khoi luong dat mua
+           p_noti      in varchar2 default 'Y'); --N -> khong bao loi check pool
+---================================================================================		   
+---Tính Rtt, VMR00031,VMR0002,VMR0003: Tỉ lệ -> Marginrate, Marginrate_ex
+	Marginrate, Marginrate_ex trong BUF_CI_ACCOUNT
+	Insert BUF_CI_ACCOUNT: pr_gencibufall -> V_CIMASTCHECK, fopks_api.pr_gencibufall -> txpks_check.fn_CIMASTcheck
+	
+	=> Marginrate, Marginrate_ex -> Lấy từ view V_GETSECMARGINRATIO
+	1. Marginrate
+	round((case when ci.balance +LEAST(nvl(af.MRCRLIMIT,0),nvl(al.secureamt,0)+trfbuyamt)+ nvl(adv.avladvance,0) - trfbuyamt - ci.odamt - nvl(al.secureamt,0) - ci.ramt>=0 then 100000
+           else nvl(se.SEMAXTOTALCALLASS,0) --least(/*nvl(af.MRCRLIMIT,0) +*/ nvl(se.SEMAXTOTALCALLASS,0), af.mrcrlimitmax - dfodamt)
+                / abs(ci.balance +LEAST(nvl(af.MRCRLIMIT,0),nvl(al.secureamt,0)+trfbuyamt)+ nvl(adv.avladvance,0) - trfbuyamt - ci.odamt - nvl(al.secureamt,0) - ci.ramt) end),4) * 100
+	IF Tiền mặt + Hạn mức vay + T
+    2. Marginrate_ex
+	round((case when ci.balance +LEAST(nvl(af.MRCRLIMIT,0),nvl(al.secureamt,0)+trfbuyamt)+ nvl(adv.avladvance,0) - trfbuyamt +nvl(LN.NYOVDAMT,0)- ci.odamt - nvl(al.secureamt,0) - ci.ramt>=0 then 100000
+           else nvl(se.SEMAXTOTALCALLASS,0) --least(/*nvl(af.MRCRLIMIT,0) +*/ nvl(se.SEMAXTOTALCALLASS,0), af.mrcrlimitmax - dfodamt)
+                / abs(ci.balance +LEAST(nvl(af.MRCRLIMIT,0),nvl(al.secureamt,0)+trfbuyamt)+ nvl(adv.avladvance,0) - trfbuyamt +nvl(LN.NYOVDAMT,0)- ci.odamt - nvl(al.secureamt,0) - ci.ramt) end),4) * 100
+	
+	=> se.SEMAXTOTALCALLASS: Lấy trong view V_GETSECMARGININFO
+	3. V_GETSECMARGININFO.SEMAXTOTALCALLASS
+	   = sum ((trade + TOTALRECEIVING - execqtty + TOTALBUYQTTY) * nvl(bk.mrratiorate,NVL(rsk1.mrratiorate,0))/100 * least(sb.MARGINCALLPRICE,nvl(bk.mrpricerate,NVL(rsk1.mrpricerate,0))))
+	   = Tổng CK * Tỉ lệ vay * Giá vay (Không min với room, ưu tiên tính rổ đặc biệt)
+	4. ci.balance = Tiền mặt
+	5. LEAST(nvl(af.MRCRLIMIT,0),nvl(al.secureamt,0)+trfbuyamt) = Min (Hạn mức cấp dựa trên tổng tài sản ngoài CK, Số tiền ký quỹ lệnh mua + Nợ T3 chưa thanh toán)
+	6. al.secureamt = V_GETBUYORDERINFO.secureamt = Số tiền ký quỹ lệnh mua
+	7. trfbuyamt = Nợ T3 chưa thanh toán
+	8. nvl(adv.avladvance,0) = sum(v_getAccountAvlAdvance.depoamt)  = Tiền ứng trước (không tính mã chặn vay)
+	9. ci.odamt = Tổng dư nợ khách hàng
+	10. ci.ramt = Số tiền đã nhận
+--
+Toàn đang sửa cái room lấy cả giá và tỷ lệ rổ đặc biệt ấy
+
+thì lấy giá với tỷ lệ ở afserisk thay vì secbasket cho c nhé
+như vậy chuẩn hơn
+
+
